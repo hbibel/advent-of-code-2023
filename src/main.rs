@@ -19,5 +19,6 @@ fn main() {
         println!("{}", day_1::compute_calibration_value_2(content.clone()));
     } else if day == 2 {
         println!("{}", day_2::possible_game_id_sum(content.clone()));
+        println!("{}", day_2::game_power_sum(content.clone()));
     }
 }

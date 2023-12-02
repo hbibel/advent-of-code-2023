@@ -21,6 +21,14 @@ pub fn possible_game_id_sum(input: String) -> i32 {
         .sum()
 }
 
+pub fn game_power_sum(input: String) -> i32 {
+    input
+        .lines()
+        .map(|l| Game::from(String::from(l)))
+        .map(|g| g.power())
+        .sum()
+}
+
 impl Game {
     fn from(line: String) -> Game {
         let max_red = color_count("red", &line);
@@ -42,6 +50,10 @@ impl Game {
             max_blue,
         }
     }
+
+    fn power(&self) -> i32 {
+        self.max_red * self.max_green * self.max_blue
+    }
 }
 
 fn color_count(color: &str, line: &String) -> i32 {
@@ -57,7 +69,7 @@ fn color_count(color: &str, line: &String) -> i32 {
 
 #[cfg(test)]
 mod tests {
-    use crate::day_2::possible_game_id_sum;
+    use crate::day_2::{game_power_sum, possible_game_id_sum};
 
     #[test]
     fn example() {
@@ -68,8 +80,22 @@ mod tests {
             Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red\n\
             Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green",
         );
-        let expected = 88;
+        let expected = 8;
         let actual = possible_game_id_sum(input);
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn example_2() {
+        let input = String::from(
+            "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n\
+            Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue\n\
+            Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red\n\
+            Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red\n\
+            Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green",
+        );
+        let expected = 2286;
+        let actual = game_power_sum(input);
         assert_eq!(actual, expected);
     }
 }
