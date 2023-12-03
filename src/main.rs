@@ -2,6 +2,7 @@ use std::{env::args, fs};
 
 mod day_1;
 mod day_2;
+mod day_3;
 
 fn main() {
     let day = args()
@@ -20,5 +21,7 @@ fn main() {
     } else if day == 2 {
         println!("{}", day_2::possible_game_id_sum(content.clone()));
         println!("{}", day_2::game_power_sum(content.clone()));
+    } else if day == 3 {
+        println!("{}", day_3::sum_part_nums(content.clone()));
     }
 }
