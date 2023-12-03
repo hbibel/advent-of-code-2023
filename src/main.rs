@@ -23,5 +23,6 @@ fn main() {
         println!("{}", day_2::game_power_sum(content.clone()));
     } else if day == 3 {
         println!("{}", day_3::sum_part_nums(content.clone()));
+        println!("{}", day_3::sum_gear_ratios(content.clone()));
     }
 }
