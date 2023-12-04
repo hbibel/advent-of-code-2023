@@ -3,6 +3,7 @@ use std::{env::args, fs};
 mod day_1;
 mod day_2;
 mod day_3;
+mod day_4;
 
 fn main() {
     let day = args()
@@ -24,5 +25,8 @@ fn main() {
     } else if day == 3 {
         println!("{}", day_3::sum_part_nums(content.clone()));
         println!("{}", day_3::sum_gear_ratios(content.clone()));
+    } else if day == 4 {
+        println!("{}", day_4::pile_worth(content.clone()));
+        println!("{}", day_4::num_cards(content.clone()));
     }
 }
