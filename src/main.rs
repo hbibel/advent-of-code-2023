@@ -31,5 +31,6 @@ fn main() {
         println!("{}", day_4::num_cards(content.clone()));
     } else if day == 5 {
         println!("{}", day_5::lowest_location(content.clone()));
+        println!("{}", day_5::lowest_location_ranges(content.clone()));
     }
 }
