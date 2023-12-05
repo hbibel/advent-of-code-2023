@@ -4,6 +4,7 @@ mod day_1;
 mod day_2;
 mod day_3;
 mod day_4;
+mod day_5;
 
 fn main() {
     let day = args()
@@ -28,5 +29,7 @@ fn main() {
     } else if day == 4 {
         println!("{}", day_4::pile_worth(content.clone()));
         println!("{}", day_4::num_cards(content.clone()));
+    } else if day == 5 {
+        println!("{}", day_5::lowest_location(content.clone()));
     }
 }
