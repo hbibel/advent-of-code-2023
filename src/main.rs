@@ -5,6 +5,7 @@ mod day_2;
 mod day_3;
 mod day_4;
 mod day_5;
+mod day_6;
 
 fn main() {
     let day = args()
@@ -32,5 +33,7 @@ fn main() {
     } else if day == 5 {
         println!("{}", day_5::lowest_location(content.clone()));
         println!("{}", day_5::lowest_location_ranges(content.clone()));
+    } else if day == 6 {
+        println!("{}", day_6::ways_to_win(content.clone()));
     }
 }
