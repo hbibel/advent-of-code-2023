@@ -35,5 +35,6 @@ fn main() {
         println!("{}", day_5::lowest_location_ranges(content.clone()));
     } else if day == 6 {
         println!("{}", day_6::ways_to_win(content.clone()));
+        println!("{}", day_6::ways_to_win_2(content.clone()));
     }
 }
