@@ -7,6 +7,7 @@ mod day_4;
 mod day_5;
 mod day_6;
 mod day_7;
+mod day_7_2;
 
 fn main() {
     let day = args()
@@ -39,5 +40,6 @@ fn main() {
         println!("{}", day_6::ways_to_win_2(content.clone()));
     } else if day == 7 {
         println!("{}", day_7::total_winnings(content.clone()));
+        println!("{}", day_7_2::total_winnings(content.clone()));
     }
 }
