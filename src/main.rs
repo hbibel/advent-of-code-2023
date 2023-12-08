@@ -44,5 +44,6 @@ fn main() {
         println!("{}", day_7_2::total_winnings(content.clone()));
     } else if day == 8 {
         println!("{}", day_8::steps_to_zzz(content.clone()));
+        println!("{}", day_8::steps_to_z(content.clone()));
     }
 }
