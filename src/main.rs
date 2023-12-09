@@ -9,6 +9,7 @@ mod day_6;
 mod day_7;
 mod day_7_2;
 mod day_8;
+mod day_9;
 
 fn main() {
     let day = args()
@@ -45,5 +46,7 @@ fn main() {
     } else if day == 8 {
         println!("{}", day_8::steps_to_zzz(content.clone()));
         println!("{}", day_8::steps_to_z(content.clone()));
+    } else if day == 9 {
+        println!("{}", day_9::sum_interpolations(content.clone()));
     }
 }
