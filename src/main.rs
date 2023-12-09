@@ -47,6 +47,8 @@ fn main() {
         println!("{}", day_8::steps_to_zzz(content.clone()));
         println!("{}", day_8::steps_to_z(content.clone()));
     } else if day == 9 {
-        println!("{}", day_9::sum_interpolations(content.clone()));
+        let (appended, prepended) = day_9::sum_interpolations(content);
+        println!("{}", appended);
+        println!("{}", prepended);
     }
 }

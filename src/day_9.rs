@@ -1,5 +1,6 @@
-pub fn sum_interpolations(input: String) -> i32 {
-    let mut sum = 0;
+pub fn sum_interpolations(input: String) -> (i32, i32) {
+    let mut sum_appended = 0;
+    let mut sum_prepended = 0;
 
     input.lines().for_each(|line| {
         let nums: Vec<_> = line
@@ -17,18 +18,27 @@ pub fn sum_interpolations(input: String) -> i32 {
             numss.push(der);
         }
         // last element in numss is all 0 now
-        let next_num = numss.iter().enumerate().fold(0, |acc, (level, ns)| {
-            if level == 0 {
-                acc
-            } else {
-                let prev_nums = numss.get(level - 1).unwrap();
-                acc + ns.last().unwrap() + prev_nums[ns.len() - 1]
-            }
-        });
-        sum += next_num;
+        let (appended, prepended) =
+            numss
+                .iter()
+                .enumerate()
+                .rev()
+                .fold((0, 0), |acc, (level, ns)| {
+                    if level == 0 {
+                        acc
+                    } else {
+                        let prev_nums = numss.get(level - 1).unwrap();
+                        (
+                            acc.0 + ns.last().unwrap() + prev_nums[ns.len() - 1],
+                            prev_nums[0] - acc.1,
+                        )
+                    }
+                });
+        sum_appended += appended;
+        sum_prepended += prepended;
     });
 
-    sum
+    (sum_appended, sum_prepended)
 }
 
 #[cfg(test)]
@@ -42,7 +52,7 @@ mod tests {
              1 3 6 10 15 21\n\
              10 13 16 21 30 45",
         );
-        let expected = 114;
+        let expected = (114, 2);
         let actual = sum_interpolations(input);
         assert_eq!(actual, expected);
     }
