@@ -53,5 +53,6 @@ fn main() {
         println!("{}", prepended);
     } else if day == 10 {
         println!("{}", day_10::farthest_distance(&content));
+        println!("{}", day_10::enclosed_tiles(&content));
     }
 }

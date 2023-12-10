@@ -1,3 +1,5 @@
+use std::iter;
+
 #[derive(Debug)]
 enum Orientation {
     LEFT,
@@ -151,6 +153,78 @@ fn to_readable(input: &String) -> String {
             other => other,
         })
         .collect();
+}
+
+pub fn enclosed_tiles(input: &String) -> u32 {
+    let grid: Vec<Vec<char>> = input
+        .lines()
+        .map(str::chars)
+        .map(Iterator::collect)
+        .collect();
+    let grid = only_loop(grid);
+
+    let new_input = grid
+        .iter()
+        .map(|l| l.iter().collect::<String>() + "\n")
+        .collect::<String>();
+    println!("{}", to_readable(&new_input));
+
+    grid.iter().fold(0, |grid_acc, line| {
+        let mut enclosed = false;
+        let mut in_turn = None;
+        line.iter()
+            .fold(0, |line_acc, c| match (enclosed, in_turn, *c) {
+                (false, _, '.') => line_acc,
+                (true, _, '.') => line_acc + 1,
+                (_, _, '-') => line_acc,
+                (_, _, '|') => {
+                    enclosed = !enclosed;
+                    line_acc
+                }
+                (_, _, 'F') => {
+                    in_turn = Some('F');
+                    line_acc
+                }
+                (_, Some('F'), '7') => line_acc,
+                (_, Some('L'), '7') => {
+                    enclosed = !enclosed;
+                    in_turn = None;
+                    line_acc
+                }
+                (_, _, 'L') => {
+                    in_turn = Some('L');
+                    line_acc
+                }
+                (_, Some('L'), 'J') => line_acc,
+                (_, Some('F'), 'J') => {
+                    enclosed = !enclosed;
+                    in_turn = None;
+                    line_acc
+                }
+                _ => unreachable!("!"),
+            })
+            + grid_acc
+    })
+}
+
+fn only_loop(grid: Vec<Vec<char>>) -> Vec<Vec<char>> {
+    let start = Position {
+        p_x: 43,
+        p_y: 92,
+        orientation: Orientation::RIGHT,
+        p_char: '-',
+    };
+    let mut new_grid: Vec<Vec<char>> =
+        iter::repeat(iter::repeat('.').take(grid[0].len()).collect())
+            .take(grid.len())
+            .collect();
+    new_grid[92][43] = '-';
+    let mut next = step(&start.orientation, &grid, &start.p_x, &start.p_y).unwrap();
+    while next.p_char != 'S' {
+        new_grid[next.p_y][next.p_x] = next.p_char;
+        next = step(&next.orientation, &grid, &next.p_x, &next.p_y).unwrap();
+    }
+    new_grid
 }
 
 #[cfg(test)]
