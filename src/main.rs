@@ -1,6 +1,7 @@
 use std::{env::args, fs};
 
 mod day_1;
+mod day_10;
 mod day_2;
 mod day_3;
 mod day_4;
@@ -50,5 +51,7 @@ fn main() {
         let (appended, prepended) = day_9::sum_interpolations(content);
         println!("{}", appended);
         println!("{}", prepended);
+    } else if day == 10 {
+        println!("{}", day_10::farthest_distance(&content));
     }
 }
