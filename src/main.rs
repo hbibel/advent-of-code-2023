@@ -56,6 +56,7 @@ fn main() {
         println!("{}", day_10::farthest_distance(&content));
         println!("{}", day_10::enclosed_tiles(&content));
     } else if day == 11 {
-        println!("{}", day_11::sum_shortest_paths(&content));
+        println!("{}", day_11::sum_shortest_paths(&content, 2));
+        println!("{}", day_11::sum_shortest_paths(&content, 1000000));
     }
 }

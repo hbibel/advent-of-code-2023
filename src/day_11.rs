@@ -1,4 +1,4 @@
-pub fn sum_shortest_paths(input: &String) -> i64 {
+pub fn sum_shortest_paths(input: &String, age_factor: i64) -> i64 {
     let grid: Vec<Vec<char>> = input.lines().map(|line| line.chars().collect()).collect();
 
     let empty_rows: Vec<usize> = (0..grid.len())
@@ -20,14 +20,16 @@ pub fn sum_shortest_paths(input: &String) -> i64 {
             let (r2, c2) = galaxy_coords[j];
             sum += (r1 as i64 - r2 as i64).abs();
             sum += (c1 as i64 - c2 as i64).abs();
-            sum += empty_rows
-                .iter()
-                .filter(|er| er > &&r1 && er < &&r2 || er > &&r2 && er < &&r1)
-                .count() as i64;
-            sum += empty_cols
-                .iter()
-                .filter(|ec| ec > &&c1 && ec < &&c2 || ec > &&c2 && ec < &&c1)
-                .count() as i64;
+            sum += (age_factor - 1)
+                * empty_rows
+                    .iter()
+                    .filter(|er| er > &&r1 && er < &&r2 || er > &&r2 && er < &&r1)
+                    .count() as i64;
+            sum += (age_factor - 1)
+                * empty_cols
+                    .iter()
+                    .filter(|ec| ec > &&c1 && ec < &&c2 || ec > &&c2 && ec < &&c1)
+                    .count() as i64;
         }
     }
     sum
@@ -52,7 +54,26 @@ mod tests {
              #...#.....",
         );
         let expected = 374;
-        let actual = sum_shortest_paths(&input);
+        let actual = sum_shortest_paths(&input, 2);
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn example_2() {
+        let input = String::from(
+            "...#......\n\
+             .......#..\n\
+             #.........\n\
+             ..........\n\
+             ......#...\n\
+             .#........\n\
+             .........#\n\
+             ..........\n\
+             .......#..\n\
+             #...#.....",
+        );
+        let expected = 1030;
+        let actual = sum_shortest_paths(&input, 10);
         assert_eq!(actual, expected);
     }
 }
