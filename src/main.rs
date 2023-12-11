@@ -2,6 +2,7 @@ use std::{env::args, fs};
 
 mod day_1;
 mod day_10;
+mod day_11;
 mod day_2;
 mod day_3;
 mod day_4;
@@ -54,5 +55,7 @@ fn main() {
     } else if day == 10 {
         println!("{}", day_10::farthest_distance(&content));
         println!("{}", day_10::enclosed_tiles(&content));
+    } else if day == 11 {
+        println!("{}", day_11::sum_shortest_paths(&content));
     }
 }
